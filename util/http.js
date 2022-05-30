@@ -1,22 +1,25 @@
-import axios from 'axios';
+import axios from "axios";
 
 const BACKEND_URL =
-  'https://expense-tracker-react-na-834c5-default-rtdb.europe-west1.firebasedatabase.app/';
+  "https://expense-tracker-react-na-834c5-default-rtdb.europe-west1.firebasedatabase.app/";
 
 export async function storeZaduzenje(zaduzenjeData) {
-  const response = await axios.post(BACKEND_URL + '/zaduzenja.json', zaduzenjeData);
+  const response = await axios.post(
+    BACKEND_URL + "/zaduzenja.json",
+    zaduzenjeData
+  );
   const id = response.data.name;
   return id;
 }
 
 export async function storeRadnik(radnikData) {
-  const response = await axios.post(BACKEND_URL + '/radnici.json', radnikData);
+  const response = await axios.post(BACKEND_URL + "/radnici.json", radnikData);
   const id = response.data.name;
   return id;
 }
 
 export async function fetchZaduzenja() {
-  const response = await axios.get(BACKEND_URL + '/zaduzenja.json');
+  const response = await axios.get(BACKEND_URL + "/zaduzenja.json");
 
   const zaduzenja = [];
 
@@ -35,7 +38,7 @@ export async function fetchZaduzenja() {
       datumUlaz: response.data[key].datumUlaz,
       datumIzlaz: response.data[key].datumIzlaz,
       status: response.data[key].status,
-      radnik: response.data[key].radnik
+      radnik: response.data[key].radnik,
     };
     zaduzenja.push(zaduzenjeObj);
   }
@@ -44,7 +47,7 @@ export async function fetchZaduzenja() {
 }
 
 export async function fetchRadnici() {
-  const response = await axios.get(BACKEND_URL + '/radnici.json');
+  const response = await axios.get(BACKEND_URL + "/radnici.json");
 
   const radnici = [];
 
@@ -59,7 +62,6 @@ export async function fetchRadnici() {
       prezime: response.data[key].prezime,
       username: response.data[key].username,
       sifra: response.data[key].sifra,
-    
     };
     radnici.push(radnikObj);
   }

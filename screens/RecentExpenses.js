@@ -8,16 +8,16 @@
 //import { fetchExpenses } from '../util/http';
 
 ///////////////////////////////////////////////
-import { useContext, useLayoutEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { useContext, useLayoutEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
 
-import RadnikForm from '../components/ExpensesOutput/RadnikForm';
-import ErrorOverlay from '../components/UI/ErrorOverlay';
-import IconButton from '../components/UI/IconButton';
-import LoadingOverlay from '../components/UI/LoadingOverlay';
-import { GlobalStyles } from '../constants/styles';
-import { RadniciContext } from '../store/radnici-context';
-import { storeRadnik, updateRadnik, deleteRadnik } from '../util/http';
+import RadnikForm from "../components/ExpensesOutput/RadnikForm";
+import ErrorOverlay from "../components/UI/ErrorOverlay";
+import IconButton from "../components/UI/IconButton";
+import LoadingOverlay from "../components/UI/LoadingOverlay";
+import { GlobalStyles } from "../constants/styles";
+import { RadniciContext } from "../store/radnici-context";
+import { storeRadnik, updateRadnik, deleteRadnik } from "../util/http";
 
 function RecentExpenses({ route, navigation }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,7 +34,7 @@ function RecentExpenses({ route, navigation }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: isEditing ? 'Izmjena radnika' : 'Новi radnik',
+      title: isEditing ? "Izmjena radnika" : "Новi radnik",
     });
   }, [navigation, isEditing]);
 
@@ -44,16 +44,16 @@ function RecentExpenses({ route, navigation }) {
       await deleteRadnik(editedRadnikId);
       radniciCtx.deleteRadnik(editedRadnikId);
       //navigation.goBack();
-      navigation.navigate('AllExpenses');
+      navigation.navigate("AllExpenses");
     } catch (error) {
-      setError('Није могуће обрисати податке, покушајте опет касније!');
+      setError("Није могуће обрисати податке, покушајте опет касније!");
       setIsSubmitting(false);
     }
   }
 
   function cancelHandler() {
     //navigation.goBack();
-    navigation.navigate('AllExpenses');
+    navigation.navigate("AllExpenses");
   }
 
   async function confirmHandler(radnikData) {
@@ -67,9 +67,9 @@ function RecentExpenses({ route, navigation }) {
         radniciCtx.addRadnik({ ...radnikData, id: id });
       }
       //navigation.goBack();
-      navigation.navigate('AllExpenses');
+      navigation.navigate("AllExpenses");
     } catch (error) {
-      setError('Није могуће снимити податке - покушајте опет касније!');
+      setError("Није могуће снимити податке - покушајте опет касније!");
       setIsSubmitting(false);
     }
   }
@@ -85,7 +85,7 @@ function RecentExpenses({ route, navigation }) {
   return (
     <View style={styles.container}>
       <RadnikForm
-        submitButtonLabel={isEditing ? 'Измени' : 'Додај'}
+        submitButtonLabel={isEditing ? "Измени" : "Додај"}
         onSubmit={confirmHandler}
         onCancel={cancelHandler}
         defaultValues={selectedRadnik}
@@ -118,16 +118,16 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     borderTopWidth: 2,
     borderTopColor: GlobalStyles.colors.primary200,
-    alignItems: 'center',
+    alignItems: "center",
   },
 });
 
 //function RecentExpenses({ route, navigation }) {
-  
-  //const [isFetching, setIsFetching] = useState(true);
-  //const [error, setError] = useState();
 
-  /*
+//const [isFetching, setIsFetching] = useState(true);
+//const [error, setError] = useState();
+
+/*
   const expensesCtx = useContext(ExpensesContext);
 
   useEffect(() => {
@@ -145,13 +145,13 @@ const styles = StyleSheet.create({
     getExpenses();
   }, []);*/
 
-  //if (error && !isFetching) {
-  //  return <ErrorOverlay message={error} />;
-  //}
+//if (error && !isFetching) {
+//  return <ErrorOverlay message={error} />;
+//}
 
-  //if (isFetching) {
-  //  return <LoadingOverlay />;
-  //}
+//if (isFetching) {
+//  return <LoadingOverlay />;
+//}
 /*
   const recentExpenses = expensesCtx.expenses.filter((expense) => {
     const today = new Date();
@@ -160,13 +160,13 @@ const styles = StyleSheet.create({
     return expense.date >= date7DaysAgo && expense.date <= today;
   });*/
 
-  //return (
-    //<ExpensesOutput
-     // expenses={expenses}
-      //expensesPeriod="Last 7 Days"
-      //fallbackText="No expenses registered for the last 7 days."
-   // />
-  //);
+//return (
+//<ExpensesOutput
+// expenses={expenses}
+//expensesPeriod="Last 7 Days"
+//fallbackText="No expenses registered for the last 7 days."
+// />
+//);
 //}
 
 //export default RecentExpenses;

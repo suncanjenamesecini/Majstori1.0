@@ -1,28 +1,27 @@
-import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 
-import Input from '../ManageExpense/Input';
-import Button from '../UI/Button';
-import { getFormattedDate } from '../../util/date';
-import { GlobalStyles } from '../../constants/styles';
+import Input from "../ManageExpense/Input";
+import Button from "../UI/Button";
+import { getFormattedDate } from "../../util/date";
+import { GlobalStyles } from "../../constants/styles";
 
 function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
   const [inputs, setInputs] = useState({
-    
     ime: {
-        value: defaultValues ? defaultValues.ime : '',
-        isValid: true,
-      },
+      value: defaultValues ? defaultValues.ime : "",
+      isValid: true,
+    },
     prezime: {
-      value: defaultValues ? defaultValues.prezime : '',
+      value: defaultValues ? defaultValues.prezime : "",
       isValid: true,
     },
     username: {
-      value: defaultValues ? defaultValues.username : '',
+      value: defaultValues ? defaultValues.username : "",
       isValid: true,
     },
     sifra: {
-      value: defaultValues ? defaultValues.sifra : '',
+      value: defaultValues ? defaultValues.sifra : "",
       isValid: true,
     },
   });
@@ -37,9 +36,7 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
   }
 
   function submitHandler() {
-    
     const radnikData = {
-      
       ime: inputs.ime.value,
       prezime: inputs.prezime.value,
       username: inputs.username.value,
@@ -51,7 +48,7 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
     const usernameIsValid = radnikData.username.trim().length > 0;
     const sifraIsValid = radnikData.sifra.trim().length > 0;
 
-    if (!imeIsValid || !prezimeIsValid  || !usernameIsValid || !sifraIsValid) {
+    if (!imeIsValid || !prezimeIsValid || !usernameIsValid || !sifraIsValid) {
       // Alert.alert('Invalid input', 'Please check your input values');
       setInputs((curInputs) => {
         return {
@@ -113,15 +110,13 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
     onSubmit(expenseData); */
   }
 
-  
   const formIsInvalid =
     !inputs.ime.isValid ||
     !inputs.prezime.isValid ||
     !inputs.username.isValid ||
     !inputs.sifra.isValid;
 
-    
-   //const formIsInvalid = false;
+  //const formIsInvalid = false;
 
   return (
     <View style={styles.form}>
@@ -179,7 +174,7 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
           //multiline: true,
           // autoCapitalize: 'none'
           // autoCorrect: false // default is true
-          onChangeText: inputChangedHandler.bind(this, 'ime'),
+          onChangeText: inputChangedHandler.bind(this, "ime"),
           value: inputs.ime.value,
         }}
       />
@@ -190,7 +185,7 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
           //multiline: true,
           // autoCapitalize: 'none'
           // autoCorrect: false // default is true
-          onChangeText: inputChangedHandler.bind(this, 'prezime'),
+          onChangeText: inputChangedHandler.bind(this, "prezime"),
           value: inputs.prezime.value,
         }}
       />
@@ -201,7 +196,7 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
           //multiline: true,
           // autoCapitalize: 'none'
           // autoCorrect: false // default is true
-          onChangeText: inputChangedHandler.bind(this, 'username'),
+          onChangeText: inputChangedHandler.bind(this, "username"),
           value: inputs.username.value,
         }}
       />
@@ -212,11 +207,11 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
           //multiline: true,
           // autoCapitalize: 'none'
           // autoCorrect: false // default is true
-          onChangeText: inputChangedHandler.bind(this, 'sifra'),
+          onChangeText: inputChangedHandler.bind(this, "sifra"),
           value: inputs.sifra.value,
         }}
       />
-      
+
       {formIsInvalid && (
         <Text style={styles.errorText}>
           Invalid input values - please check your entered data!
@@ -242,27 +237,27 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
     marginVertical: 24,
-    textAlign: 'center',
+    textAlign: "center",
   },
   inputsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   rowInput: {
     flex: 1,
   },
   errorText: {
-    textAlign: 'center',
+    textAlign: "center",
     color: GlobalStyles.colors.error500,
     margin: 8,
   },
   buttons: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   button: {
     minWidth: 120,

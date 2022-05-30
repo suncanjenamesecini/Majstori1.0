@@ -1,10 +1,10 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-import { GlobalStyles } from '../../constants/styles';
-import ExpensesList from './ExpensesList';
-import ExpensesSummary from './ExpensesSummary';
+import { GlobalStyles } from "../../constants/styles";
+import ExpensesList from "./ExpensesList";
+import ExpensesSummary from "./ExpensesSummary";
 
-function ExpensesOutput({  expenses, radnici, fallbackText }) {
+function ExpensesOutput({ expenses, radnici, fallbackText }) {
   let content = <Text style={styles.infoText}>{fallbackText}</Text>;
 
   if (expenses.length > 0) {
@@ -13,7 +13,7 @@ function ExpensesOutput({  expenses, radnici, fallbackText }) {
 
   return (
     <View style={styles.container}>
-    {/*
+      {/*
     
     <ScrollView
     //onScroll={({nativeEvent}) => onchange(nativeEvent)}
@@ -52,9 +52,9 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.primary800,
   },
   infoText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 32,
   },
 });

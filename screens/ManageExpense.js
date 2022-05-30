@@ -1,13 +1,13 @@
-import { useContext, useLayoutEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { useContext, useLayoutEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
 
-import ExpenseForm from '../components/ManageExpense/ExpenseForm';
-import ErrorOverlay from '../components/UI/ErrorOverlay';
-import IconButton from '../components/UI/IconButton';
-import LoadingOverlay from '../components/UI/LoadingOverlay';
-import { GlobalStyles } from '../constants/styles';
-import { ExpensesContext } from '../store/expenses-context';
-import { storeZaduzenje, updateZaduzenje, deleteZaduzenje } from '../util/http';
+import ExpenseForm from "../components/ManageExpense/ExpenseForm";
+import ErrorOverlay from "../components/UI/ErrorOverlay";
+import IconButton from "../components/UI/IconButton";
+import LoadingOverlay from "../components/UI/LoadingOverlay";
+import { GlobalStyles } from "../constants/styles";
+import { ExpensesContext } from "../store/expenses-context";
+import { storeZaduzenje, updateZaduzenje, deleteZaduzenje } from "../util/http";
 
 function ManageExpense({ route, navigation }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -24,7 +24,7 @@ function ManageExpense({ route, navigation }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: isEditing ? 'Измјена задужења' : 'Ново задужење',
+      title: isEditing ? "Измјена задужења" : "Ново задужење",
     });
   }, [navigation, isEditing]);
 
@@ -35,7 +35,7 @@ function ManageExpense({ route, navigation }) {
       expensesCtx.deleteExpense(editedExpenseId);
       navigation.goBack();
     } catch (error) {
-      setError('Није могуће обрисати податке, покушајте опет касније!');
+      setError("Није могуће обрисати податке, покушајте опет касније!");
       setIsSubmitting(false);
     }
   }
@@ -56,7 +56,7 @@ function ManageExpense({ route, navigation }) {
       }
       navigation.goBack();
     } catch (error) {
-      setError('Није могуће снимити податке - покушајте опет касније!');
+      setError("Није могуће снимити податке - покушајте опет касније!");
       setIsSubmitting(false);
     }
   }
@@ -72,7 +72,7 @@ function ManageExpense({ route, navigation }) {
   return (
     <View style={styles.container}>
       <ExpenseForm
-        submitButtonLabel={isEditing ? 'Измени' : 'Додај'}
+        submitButtonLabel={isEditing ? "Измени" : "Додај"}
         onSubmit={confirmHandler}
         onCancel={cancelHandler}
         defaultValues={selectedExpense}
@@ -104,6 +104,6 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     borderTopWidth: 2,
     borderTopColor: GlobalStyles.colors.primary200,
-    alignItems: 'center',
+    alignItems: "center",
   },
 });

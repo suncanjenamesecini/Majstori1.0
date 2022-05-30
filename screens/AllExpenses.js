@@ -1,22 +1,22 @@
 //import { useContext } from 'react';
-import { useContext, useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View, Pressable } from 'react-native';
+import { useContext, useEffect, useState } from "react";
+import { ScrollView, StyleSheet, Text, View, Pressable } from "react-native";
 
-import ExpensesOutput from '../components/ExpensesOutput/ExpensesOutput';
-import { ExpensesContext } from '../store/expenses-context';
+import ExpensesOutput from "../components/ExpensesOutput/ExpensesOutput";
+import { ExpensesContext } from "../store/expenses-context";
 //import { useContext, useEffect, useState } from 'react';
 
 //import ExpensesOutput from '../components/ExpensesOutput/ExpensesOutput';
-import ErrorOverlay from '../components/UI/ErrorOverlay';
-import LoadingOverlay from '../components/UI/LoadingOverlay';
-import { RadniciContext } from '../store/radnici-context';
+import ErrorOverlay from "../components/UI/ErrorOverlay";
+import LoadingOverlay from "../components/UI/LoadingOverlay";
+import { RadniciContext } from "../store/radnici-context";
 //import { getDateMinusDays } from '../util/date';
-import { fetchZaduzenja, fetchRadnici } from '../util/http';
-import ExpensesSummary from '../components/ExpensesOutput/ExpensesSummary';
-import { GlobalStyles } from '../constants/styles';
-import ExpensesList from '../components/ExpensesOutput/ExpensesList';
+import { fetchZaduzenja, fetchRadnici } from "../util/http";
+import ExpensesSummary from "../components/ExpensesOutput/ExpensesSummary";
+import { GlobalStyles } from "../constants/styles";
+import ExpensesList from "../components/ExpensesOutput/ExpensesList";
 
-let localRadnici=[];
+let localRadnici = [];
 //let isfiltriranaZaduzenja = [];
 //let filtriraj = '';
 function AllExpenses() {
@@ -24,8 +24,8 @@ function AllExpenses() {
   const [isFetching, setIsFetching] = useState(true);
   const [error, setError] = useState();
   const [filtriranaZaduzenja, setFiltriranaZaduzenja] = useState([]);
-  const [kliknutoIme, setKliknutoIme] = useState('');
-  
+  const [kliknutoIme, setKliknutoIme] = useState("");
+
   const expensesCtx = useContext(ExpensesContext);
   const radniciCtx = useContext(RadniciContext);
 
@@ -56,7 +56,7 @@ function AllExpenses() {
         console.log("*****************************************");
         console.log(radniciCtx.radnici);
       } catch (error) {
-        setError('Could not fetch radnici!');
+        setError("Could not fetch radnici!");
       }
       setIsFetching(false);
     }
@@ -64,27 +64,23 @@ function AllExpenses() {
     getRadnici();
   }, []);
 
-
-  
   useEffect(() => {
     async function getZaduzenja() {
       setIsFetching(true);
       try {
         const expenses = await fetchZaduzenja();
-        console.log('~~~~~~~~~~~~~~~~~~~~~~`');
+        console.log("~~~~~~~~~~~~~~~~~~~~~~`");
         console.log(expenses);
         expensesCtx.setExpenses(expenses);
         setFiltriranaZaduzenja(expensesCtx.expenses);
       } catch (error) {
-        setError('Could not fetch expenses!');
+        setError("Could not fetch expenses!");
       }
       setIsFetching(false);
     }
 
     getZaduzenja();
   }, []);
-
-  
 
   if (error && !isFetching) {
     return <ErrorOverlay message={error} />;
@@ -99,7 +95,6 @@ function AllExpenses() {
   //setIsfiltriranaZaduzenja(expensesCtx.expenses);
   //let filtriranaZaduzenja = expensesCtx.expenses;
 
-  
   /*
   if(kliknutoIme != '' || kliknutoIme != 'svi') {
     filtriranaZaduzenja = expensesCtx.expenses.filter( (zaduzenje) => {return zaduzenje.radnik == kliknutoIme});
@@ -114,43 +109,64 @@ function AllExpenses() {
   if ( filtriranaZaduzenja.length > 0) {
     content = <ExpensesList expenses={filtriranaZaduzenja} />;
   }*/
-  if ( filtriranaZaduzenja.length > 0) {
+  if (filtriranaZaduzenja.length > 0) {
     content = <ExpensesList expenses={filtriranaZaduzenja} />;
   } else {
     content = <ExpensesList expenses={expensesCtx.expenses} />; //TODO popraviti da ovo bude i prazno za slucaj da nema zaduzenja za majstora, ne samo za pocetak
   }
 
   return (
-
     //<ExpensesOutput
-     // expenses={expensesCtx.expenses}
-      //radnici={localRadnici}
-      //expensesPeriod="Total"
-     // fallbackText="No registered expenses found!"
+    // expenses={expensesCtx.expenses}
+    //radnici={localRadnici}
+    //expensesPeriod="Total"
+    // fallbackText="No registered expenses found!"
     ///>
     <View style={styles.container}>
-    <ScrollView
-    //onScroll={({nativeEvent}) => onchange(nativeEvent)}
-    showsHorizontalScrollIndicator={false}
-    pagingEnabled
-    horizontal
-    >
-    <Pressable key={'svi'} onPress={() => {console.log('svi'); setKliknutoIme("svi"); console.log(kliknutoIme)}}><ExpensesSummary ime={"Сви"} prezime={""}/></Pressable>
-     {localRadnici.map((radnik) => {return (<Pressable key={radnik.id} onPress={() => {
-       console.log(""+radnik.ime+" "+radnik.prezime); 
-       setKliknutoIme(""+radnik.ime+" "+radnik.prezime); 
-       setFiltriranaZaduzenja(expensesCtx.expenses.filter( (zaduzenje) => {return zaduzenje.radnik.trim() == kliknutoIme.trim()}));
-       console.log(kliknutoIme)}}>
-     <ExpensesSummary key={radnik.id} ime={radnik.ime} prezime={radnik.prezime}/></Pressable>)})}
-     
+      <ScrollView
+        //onScroll={({nativeEvent}) => onchange(nativeEvent)}
+        showsHorizontalScrollIndicator={false}
+        pagingEnabled
+        horizontal
+      >
+        <Pressable
+          key={"svi"}
+          onPress={() => {
+            console.log("svi");
+            setKliknutoIme("svi");
+            console.log(kliknutoIme);
+          }}
+        >
+          <ExpensesSummary ime={"Сви"} prezime={""} />
+        </Pressable>
+        {localRadnici.map((radnik) => {
+          return (
+            <Pressable
+              key={radnik.id}
+              onPress={() => {
+                console.log("" + radnik.ime + " " + radnik.prezime);
+                setKliknutoIme("" + radnik.ime + " " + radnik.prezime);
+                setFiltriranaZaduzenja(
+                  expensesCtx.expenses.filter((zaduzenje) => {
+                    return zaduzenje.radnik.trim() == kliknutoIme.trim();
+                  })
+                );
+                console.log(kliknutoIme);
+              }}
+            >
+              <ExpensesSummary
+                key={radnik.id}
+                ime={radnik.ime}
+                prezime={radnik.prezime}
+              />
+            </Pressable>
+          );
+        })}
 
-       
-     
-      
-      {/*<ExpensesSummary ime={"Сви"} prezime={""}/>
+        {/*<ExpensesSummary ime={"Сви"} prezime={""}/>
       //<ExpensesSummary ime={"Никола"} prezime={"Николић"} />*/}
       </ScrollView>
-     {content}
+      {content}
     </View>
   );
 }
@@ -166,9 +182,9 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.primary800,
   },
   infoText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 32,
   },
 });

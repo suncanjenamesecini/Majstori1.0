@@ -1,4 +1,4 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useReducer } from "react";
 
 export const RadniciContext = createContext({
   radnici: [],
@@ -12,12 +12,12 @@ export const RadniciContext = createContext({
 
 function radniciReducer(state, action) {
   switch (action.type) {
-    case 'ADD':
+    case "ADD":
       return [action.payload, ...state];
-    case 'SET':
+    case "SET":
       const inverted = action.payload.reverse();
       return inverted;
-    case 'UPDATE':
+    case "UPDATE":
       const updatableRadnikIndex = state.findIndex(
         (radnik) => radnik.id === action.payload.id
       );
@@ -26,7 +26,7 @@ function radniciReducer(state, action) {
       const updatedRadnici = [...state];
       updatedRadnici[updatableRadnikIndex] = updatedItem;
       return updatedRadnici;
-    case 'DELETE':
+    case "DELETE":
       return state.filter((radnik) => radnik.id !== action.payload);
     default:
       return state;
@@ -37,19 +37,19 @@ function RadniciContextProvider({ children }) {
   const [radniciState, dispatch] = useReducer(radniciReducer, []);
 
   function addRadnik(radnikData) {
-    dispatch({ type: 'ADD', payload: radnikData });
+    dispatch({ type: "ADD", payload: radnikData });
   }
 
   function setRadnici(radnici) {
-    dispatch({ type: 'SET', payload: radnici });
+    dispatch({ type: "SET", payload: radnici });
   }
 
   function deleteRadnik(id) {
-    dispatch({ type: 'DELETE', payload: id });
+    dispatch({ type: "DELETE", payload: id });
   }
 
   function updateRadnik(id, radnikData) {
-    dispatch({ type: 'UPDATE', payload: { id: id, data: radnikData } });
+    dispatch({ type: "UPDATE", payload: { id: id, data: radnikData } });
   }
 
   const value = {
@@ -61,9 +61,7 @@ function RadniciContextProvider({ children }) {
   };
 
   return (
-    <RadniciContext.Provider value={value}>
-      {children}
-    </RadniciContext.Provider>
+    <RadniciContext.Provider value={value}>{children}</RadniciContext.Provider>
   );
 }
 
